@@ -27,6 +27,17 @@ img{
 	border: 0;
 	cursor: pointer;
 }
+.Botao2{
+	text-decoration: none;
+	background-color: #ff0000;
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: 700;
+	border-radius: 5px;
+	padding: 5px 10px 5px 10px;
+	border: 0;
+	cursor: pointer;
+}
 .Caixa1{
 	width: 320px;
 	padding: 5px;

@@ -35,13 +35,16 @@ ArrayList<Contato> lista = (ArrayList<Contato>) request.getAttribute("contatos")
 				<td><%=lista.get(i).getNome()%></td>
 				<td><%=lista.get(i).getTelefone()%></td>
 				<td><%=lista.get(i).getEmail()%></td>
-				<td><a href="select?id=<%=lista.get(i).getId()%>" class="Botao1">Editar</a>
-					</a></td>
+				<td>
+					<a href="selecionar?id=<%=lista.get(i).getId()%>" class="Botao1">Editar</a></a>
+					<a href="javascript:confirmarExclusao(<%=lista.get(i).getId() %>)" class="Botao2">Deletar</>
+				</td>
 			</tr>
 			<%
 			}
 			%>
 		</tbody>
 	</table>
+	<script type="text/javascript" src = "scripts/Confirmacao.js"></script>
 </body>
 </html>

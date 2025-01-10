@@ -19,13 +19,13 @@
 				<td><input type="text" name="nome" class="Caixa1" value =<% out.print(request.getAttribute("nome")); %>></td>
 			</tr>
 			<tr>
-				<t	d><input type="text" name="telefone" class="Caixa2" value =<% out.print(request.getAttribute("telefone")); %>></td>
+				<td><input type="text" name="telefone" class="Caixa2" value =<% out.print(request.getAttribute("telefone")); %>></td>
 			</tr>
 			<tr>
 				<td><input type="text" name="email" class="Caixa1" value =<% out.print(request.getAttribute("email")); %>></td>
 			</tr>
 		</table>
-		<input type="button" value="Salvar" class="Botao1" onclick="validator()">
+		<input type="submit" value="Salvar" class="Botao1" onclick="validator()">
 	</form>
 	<script type="text/javascript" src="scripts/Validation.js"></script>
 </body>

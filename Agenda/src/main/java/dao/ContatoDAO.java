@@ -56,4 +56,60 @@ public class ContatoDAO {
 			return null;
 		}
 	}
+	
+	public void selecionarContato(Contato contato) {
+		String sql = "SELECT * FROM tb_contatos WHERE id = ?";
+		try {
+			Connection con = database.conection();
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setInt(1, contato.getId());
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				contato.setId(rs.getInt(1));
+				contato.setNome(rs.getString(2));
+				contato.setTelefone(rs.getString(3));
+				contato.setEmail(rs.getString(4));
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println("Erro -> " + e);
+		}
+	}
+	
+	public void atualizarContato(Contato contato) {
+		String sql =  "UPDATE tb_contatos SET"
+					+ " nome = ?, "
+					+ " telefone = ? ,"
+					+ " email = ? "
+					+ "WHERE id = ?";
+		
+		try {
+			Connection con = database.conection();
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, contato.getNome());
+			pst.setString(2, contato.getTelefone());
+			pst.setString(3, contato.getEmail());
+			pst.setInt(4, contato.getId());
+			
+			pst.executeUpdate();
+			con.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void deletarContato(Contato contato) {
+		String sql = "DELETE FROM tb_contatos WHERE id = ?";
+		
+		try {
+			Connection con =  database.conection();
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setInt(1, contato.getId());
+			pst.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 }

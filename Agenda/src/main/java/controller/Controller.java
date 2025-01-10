@@ -14,7 +14,7 @@ import dao.ContatoDAO;
 import database.Database;
 import model.Contato;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/cadastrar", "/select" })
+@WebServlet(urlPatterns = { "/Controller", "/main", "/cadastrar", "/selecionar", "/atualizar", "/deletar" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Contato contato;
@@ -35,9 +35,14 @@ public class Controller extends HttpServlet {
 			listaContato(request, response);
 		} else if (action.equals("/cadastrar")) {
 			novoContato(request, response);
-		}  else if(action.equals("/select")){
+		} else if(action.equals("/selecionar")){
 			selecionarContato(request, response);
-		}else {
+		} else if(action.equals("/atualizar")) {
+			atualizarContato(request, response);
+		}else if(action.equals("/deletar")) {
+			deletarContato(request, response);
+		}
+		else {
 			response.sendRedirect("index.html");
 		}
 
@@ -80,8 +85,39 @@ public class Controller extends HttpServlet {
 	}
 	protected void selecionarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
-		System.out.println("recebi");
+		
+		int id = Integer.valueOf(request.getParameter("id"));
+		contato.setId(id);
+		
+		contatoDAO.selecionarContato(contato);
+		
+		request.setAttribute("id", contato.getId());
+		request.setAttribute("nome", contato.getNome());
+		request.setAttribute("telefone", contato.getTelefone());
+		request.setAttribute("email", contato.getEmail());
+		
+		RequestDispatcher rd =  request.getRequestDispatcher("editar.jsp");
+		rd.forward(request, response);
 	}
-
+	protected void atualizarContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		contato.setId(Integer.parseInt(request.getParameter("id")));
+		contato.setNome(request.getParameter("nome"));
+		contato.setTelefone(request.getParameter("telefone"));
+		contato.setEmail(request.getParameter("email"));
+		
+		contatoDAO.atualizarContato(contato);
+		
+		response.sendRedirect("main");
+	}
+	protected void deletarContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		contato.setId(Integer.parseInt(request.getParameter("id")));
+		
+		contatoDAO.deletarContato(contato);
+		
+		response.sendRedirect("main");
+	}
 }
